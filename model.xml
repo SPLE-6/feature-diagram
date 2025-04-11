@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <featureModel>
 	<properties>
-		<graphics key="legendposition" value="286,167"/>
+		<graphics key="legendposition" value="318,165"/>
 		<graphics key="legendautolayout" value="false"/>
 		<graphics key="showshortnames" value="false"/>
 		<graphics key="layout" value="horizontal"/>
@@ -13,45 +13,51 @@
 		<and abstract="true" mandatory="true" name="KostSPL">
 			<graphics key="collapsed" value="false"/>
 			<feature name="Auth"/>
-			<and name="Payment">
+			<or abstract="true" name="Payment">
 				<graphics key="collapsed" value="false"/>
-				<feature name="Payment VA"/>
-				<feature name="Payment Kredit"/>
-			</and>
-			<and mandatory="true" name="Katalog Kost">
-				<graphics key="collapsed" value="false"/>
-				<feature mandatory="true" name="Informasi Kost"/>
-				<feature name="Pengajuan Survey"/>
-			</and>
-			<feature name="Profil Pengguna"/>
-			<or mandatory="true" name="Sewa Kost">
-				<graphics key="collapsed" value="false"/>
-				<feature name="Sewa via App"/>
-				<feature name="Sewa via WA"/>
+				<feature name="VirtualAccount"/>
+				<feature name="Kredit"/>
 			</or>
-			<and name="Kost Aktif Penyewa">
+			<and abstract="true" mandatory="true" name="KatalogKost">
 				<graphics key="collapsed" value="false"/>
-				<feature name="Informasi Tagihan"/>
-				<feature name="Perpanjangan Sewa"/>
+				<feature mandatory="true" name="InformasiKost"/>
+				<feature name="PengajuanSurvey"/>
 			</and>
-			<and mandatory="true" name="Properti Pemilik">
+			<feature name="ProfilPengguna"/>
+			<or abstract="true" mandatory="true" name="SewaKost">
 				<graphics key="collapsed" value="false"/>
-				<feature mandatory="true" name="Daftar Properti"/>
-				<feature name="Laporan Keuangan"/>
+				<feature name="SewaViaApp"/>
+				<feature name="SewaViaWA"/>
+			</or>
+			<and abstract="true" name="KostAktifPenyewa">
+				<graphics key="collapsed" value="false"/>
+				<feature name="InformasiTagihan"/>
+				<feature name="PerpanjanganSewa"/>
+			</and>
+			<and abstract="true" mandatory="true" name="PropertiPemilik">
+				<graphics key="collapsed" value="false"/>
+				<feature mandatory="true" name="DaftarProperti"/>
+				<feature name="LaporanKeuangan"/>
 			</and>
 		</and>
 	</struct>
 	<constraints>
 		<rule>
 			<imp>
-				<var>Profil Pengguna</var>
+				<var>ProfilPengguna</var>
 				<var>Auth</var>
 			</imp>
 		</rule>
 		<rule>
 			<imp>
-				<var>Sewa via App</var>
-				<var>Profil Pengguna</var>
+				<var>SewaViaApp</var>
+				<conj>
+					<var>ProfilPengguna</var>
+					<conj>
+						<var>Auth</var>
+						<var>Payment</var>
+					</conj>
+				</conj>
 			</imp>
 		</rule>
 		<rule>
@@ -59,38 +65,41 @@
 				<var>Payment</var>
 				<conj>
 					<var>Auth</var>
-					<conj>
-						<var>Profil Pengguna</var>
-						<var>Sewa via App</var>
-					</conj>
+					<var>ProfilPengguna</var>
 				</conj>
 			</imp>
 		</rule>
 		<rule>
 			<imp>
-				<var>Laporan Keuangan</var>
+				<var>LaporanKeuangan</var>
 				<conj>
-					<var>Daftar Properti</var>
+					<var>DaftarProperti</var>
 					<conj>
 						<var>Payment</var>
-						<var>Sewa via App</var>
+						<conj>
+							<var>SewaViaApp</var>
+							<var>Auth</var>
+						</conj>
 					</conj>
 				</conj>
 			</imp>
 		</rule>
 		<rule>
 			<imp>
-				<var>Pengajuan Survey</var>
-				<var>Profil Pengguna</var>
+				<var>PengajuanSurvey</var>
+				<conj>
+					<var>ProfilPengguna</var>
+					<var>Auth</var>
+				</conj>
 			</imp>
 		</rule>
 		<rule>
 			<imp>
-				<var>Kost Aktif Penyewa</var>
+				<var>KostAktifPenyewa</var>
 				<conj>
 					<var>Auth</var>
 					<conj>
-						<var>Sewa via App</var>
+						<var>SewaViaApp</var>
 						<var>Payment</var>
 					</conj>
 				</conj>

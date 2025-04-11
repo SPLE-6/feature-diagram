@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <featureModel>
 	<properties>
-		<graphics key="legendposition" value="148,167"/>
+		<graphics key="legendposition" value="286,167"/>
 		<graphics key="legendautolayout" value="false"/>
 		<graphics key="showshortnames" value="false"/>
 		<graphics key="layout" value="horizontal"/>
@@ -21,21 +21,80 @@
 			<and mandatory="true" name="Katalog Kost">
 				<graphics key="collapsed" value="false"/>
 				<feature name="Informasi Kost"/>
-				<feature name="Mengajukan Survey"/>
+				<feature name="Pengajuan Survey"/>
 			</and>
 			<feature name="Profil Pengguna"/>
 			<or mandatory="true" name="Sewa Kost">
+				<graphics key="collapsed" value="false"/>
 				<feature name="Sewa via App"/>
 				<feature name="Sewa via WA"/>
 			</or>
 			<and name="Kost Aktif Penyewa">
+				<graphics key="collapsed" value="false"/>
 				<feature name="Informasi Tagihan"/>
 				<feature name="Perpanjangan Sewa"/>
 			</and>
 			<and mandatory="true" name="Properti Pemilik">
+				<graphics key="collapsed" value="false"/>
 				<feature name="Daftar Properti"/>
 				<feature name="Laporan Keuangan"/>
 			</and>
 		</and>
 	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>Profil Pengguna</var>
+				<var>Auth</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Sewa via App</var>
+				<var>Profil Pengguna</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Payment</var>
+				<conj>
+					<var>Auth</var>
+					<conj>
+						<var>Profil Pengguna</var>
+						<var>Sewa via App</var>
+					</conj>
+				</conj>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Laporan Keuangan</var>
+				<conj>
+					<var>Daftar Properti</var>
+					<conj>
+						<var>Payment</var>
+						<var>Sewa via App</var>
+					</conj>
+				</conj>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Pengajuan Survey</var>
+				<var>Profil Pengguna</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Kost Aktif Penyewa</var>
+				<conj>
+					<var>Auth</var>
+					<conj>
+						<var>Sewa via App</var>
+						<var>Payment</var>
+					</conj>
+				</conj>
+			</imp>
+		</rule>
+	</constraints>
 </featureModel>

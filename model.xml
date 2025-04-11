@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="legendposition" value="148,167"/>
+		<graphics key="legendautolayout" value="false"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="KostSPL">
+			<graphics key="collapsed" value="false"/>
+			<feature name="Auth"/>
+			<and name="Payment">
+				<graphics key="collapsed" value="false"/>
+				<feature name="Payment VA"/>
+				<feature name="Payment Kredit"/>
+			</and>
+			<and mandatory="true" name="Katalog Kost">
+				<graphics key="collapsed" value="false"/>
+				<feature name="Informasi Kost"/>
+				<feature name="Mengajukan Survey"/>
+			</and>
+			<feature name="Profil Pengguna"/>
+			<or mandatory="true" name="Sewa Kost">
+				<feature name="Sewa via App"/>
+				<feature name="Sewa via WA"/>
+			</or>
+			<and name="Kost Aktif Penyewa">
+				<feature name="Informasi Tagihan"/>
+				<feature name="Perpanjangan Sewa"/>
+			</and>
+			<and mandatory="true" name="Properti Pemilik">
+				<feature name="Daftar Properti"/>
+				<feature name="Laporan Keuangan"/>
+			</and>
+		</and>
+	</struct>
+</featureModel>

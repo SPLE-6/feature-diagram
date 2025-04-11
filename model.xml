@@ -20,7 +20,7 @@
 			</and>
 			<and mandatory="true" name="Katalog Kost">
 				<graphics key="collapsed" value="false"/>
-				<feature name="Informasi Kost"/>
+				<feature mandatory="true" name="Informasi Kost"/>
 				<feature name="Pengajuan Survey"/>
 			</and>
 			<feature name="Profil Pengguna"/>
@@ -36,7 +36,7 @@
 			</and>
 			<and mandatory="true" name="Properti Pemilik">
 				<graphics key="collapsed" value="false"/>
-				<feature name="Daftar Properti"/>
+				<feature mandatory="true" name="Daftar Properti"/>
 				<feature name="Laporan Keuangan"/>
 			</and>
 		</and>
